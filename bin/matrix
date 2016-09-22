@@ -1,0 +1,23 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+require_relative '../matrix'
+
+# ./bin/matrix dict.txt N (PLease make sure you have execute permissions)
+
+grid = Matrix.new(ARGV[1].to_i)
+file = File.open(ARGV[0], 'r')
+words_to_find = file.read.split("\n").map { |line| line.split[0] }
+found_words = grid.find_words words_to_find
+
+puts '---------------------------------'
+puts grid.print
+puts '---------------------------------'
+puts 'The words found are:'
+puts '----------------------------------------------'
+found_words.each do |found_word|
+  puts "Word:#{found_word.word} - GRID Positioning:#{found_word.place} - Direction:#{found_word.direction}"
+end
+puts ''
+puts "The total number of words found in #{ARGV[0]} is: #{found_words.size}"
+# Closes stream
+file.close
